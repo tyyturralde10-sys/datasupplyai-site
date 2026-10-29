@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DataSupply · The 4-minute explainer and the partner plan</title>
+<meta name="description" content="Why AI labs are paying established companies for their data, how a license works, and how the DataSupply partner program pays on both sides of a deal.">
+<meta property="og:title" content="DataSupply · The 4-minute explainer and the partner plan">
+<meta property="og:description" content="AI has read the internet. It has never seen how your company runs.">
+<meta property="og:image" content="https://datasupplyai.com.au/presentation/explainer-poster.jpg">
+<link rel="icon" href="logo-gold.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: dark single column; each chapter is a video with one CTA under it. */
+:root{--bg:#0F0F0F;--card:#161616;--ink:#F3F1EE;--muted:#C8C0B5;--muted2:#A8A29C;--fine:#8C8781;--line:#2A2A2A;
+  --gold1:#D5BC8D;--gold3:#C8A76F;--gold-outline:#B08D57;--champagne:#D6C4B3;
+  --gold-grad:linear-gradient(90deg,#D5BC8D 0%,#EAD9B5 48%,#C8A76F 100%);
+  --display:"Outfit",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--muted);font:17px/1.55 var(--display);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--champagne)}
+.wrap{max-width:980px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px;border-bottom:1px solid var(--line)}
+header img{height:32px;width:auto}
+.nav{display:flex;gap:18px;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.nav a{color:var(--muted2);text-decoration:none}
+.nav a:hover{color:var(--gold1)}
+.kicker{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-outline);margin:0 0 14px}
+h1{font-size:clamp(34px,6vw,60px);font-weight:700;letter-spacing:-.04em;line-height:1.05;color:var(--ink);margin:0 0 18px;text-wrap:balance;max-width:16ch}
+h2{font-size:clamp(28px,4.5vw,40px);font-weight:700;letter-spacing:-.04em;line-height:1.08;color:var(--ink);margin:0 0 12px;text-wrap:balance;max-width:20ch}
+.gold{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,2vw,20px);max-width:58ch;margin:0 0 26px}
+.hero{padding-block:64px 40px}
+.paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:8px}
+.path{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;text-decoration:none;color:var(--muted)}
+.path:hover{border-color:var(--gold-outline)}
+.path b{display:block;color:var(--ink);font-size:18px;margin-bottom:4px}
+.path small{display:block;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-outline);margin-bottom:10px}
+section{padding-block:56px;border-top:1px solid var(--line)}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;background:#000;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:26px 0 22px}
+.video video{width:100%;height:100%;display:block;object-fit:cover}
+.dur{position:absolute;top:12px;left:12px;font:500 11px/1 var(--mono);letter-spacing:.12em;color:var(--ink);background:rgba(15,15,15,.75);border:1px solid var(--line);padding:7px 9px;border-radius:999px;pointer-events:none}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--gold-outline);border-radius:10px;padding:14px 20px;font:600 16px var(--display);color:var(--ink);text-decoration:none}
+.btn.primary{background:var(--gold-grad);color:#0F0F0F;border-color:transparent}
+.btn:hover{filter:brightness(1.06)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row .fine{flex-basis:100%}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0}
+.check{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.check .n{font-size:40px;font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--ink)}
+.check .l{font-size:14px;color:var(--muted2);margin-top:6px}
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:22px 0 14px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--line);white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+td.c{color:var(--ink);font-weight:600}
+td.g{color:var(--gold1);font-weight:600;font-size:18px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:22px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.step small{display:block;font:500 11px/1 var(--mono);letter-spacing:.14em;color:var(--gold-outline);margin-bottom:10px}
+.step b{display:block;color:var(--ink);font-size:17px;margin-bottom:6px}
+.step p{margin:0;font-size:15px}
+.fine{font-size:13px;color:var(--fine);max-width:72ch}
+footer{padding-block:36px 48px;border-top:1px solid var(--line);display:grid;gap:10px;font-size:14px;color:var(--muted2)}
+footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="logo-gold.svg" alt="DataSupply">
+    <nav class="nav"><a href="#explainer">Explainer</a><a href="#partner">Partner plan</a><a href="#qualify">Who fits</a></nav>
+  </header>
+
+  <div class="hero">
+    <p class="kicker">A 10-minute presentation · three short videos</p>
+    <h1>AI has read the internet. It has never seen <span class="gold">how your company runs.</span></h1>
+    <p class="lead">Established companies are licensing the records their work leaves behind to AI labs. Watch the four-minute explainer if you own a company. Watch the partner plan if you know owners.</p>
+    <div class="paths">
+      <a class="path" href="#explainer"><small>For business owners · 4:10</small><b>Could your company's data be worth licensing?</b>The safe way to find out, without sending anyone a dataset.</a>
+      <a class="path" href="#partner"><small>For partners · 1:56 + 4:14</small><b>Know a company with valuable data?</b>Open the door, DataSupply does the rest, and you're paid on both fees.</a>
+    </div>
+  </div>
+
+  <section id="explainer">
+    <p class="kicker">Chapter 1 · For business owners</p>
+    <h2>The four-minute <span class="gold">explainer.</span></h2>
+    <p class="lead">Why AI labs are paying for private company data, how a data license works, and how to find out whether your records qualify.</p>
+    <div class="video"><span class="dur">4:10</span><video controls preload="metadata" playsinline poster="explainer-poster.jpg" src="https://datasupply.ai/media/datasupply-vsl.mp4?v=your-data-vsl"></video></div>
+    <div class="row">
+      <a class="btn primary" href="https://datasupply.ai/data-partnership?ref=uobRtF82&utm_source=referral&utm_medium=share&utm_campaign=data_referral" target="_blank" rel="noopener">Find out if your company qualifies ↗</a>
+      <a class="btn" href="https://datasupply.ai/resources/commercialization-faq?ref=uobRtF82&utm_source=referral&utm_medium=share&utm_campaign=data_referral" target="_blank" rel="noopener">Read the FAQ</a>
+      <p class="fine">Your business datasets never pass through us. Explore a fit without sending a dataset.</p>
+    </div>
+  </section>
+
+  <section id="qualify">
+    <p class="kicker">Who fits</p>
+    <h2>Three checks before <span class="gold">you make the call.</span></h2>
+    <div class="checks">
+      <div class="check"><div class="n">20+</div><div class="l">desk employees on payroll</div></div>
+      <div class="check"><div class="n">3+</div><div class="l">years of records still in systems</div></div>
+      <div class="check"><div class="n">5+</div><div class="l">business systems: email, accounting, CRM, support</div></div>
+    </div>
+    <p class="fine">Closed or closing companies with 50 or more employees in their history may also qualify. DataSupply reviews each company and confirms whether it fits before anything proceeds.</p>
+  </section>
+
+  <section id="partner">
+    <p class="kicker">Chapter 2 · For partners</p>
+    <h2>Open the door. <span class="gold">We do the rest.</span></h2>
+    <p class="lead">The two-minute overview of the partner opportunity, then the compensation plan in full.</p>
+    <div class="video"><span class="dur">1:56 · The opportunity</span><video controls preload="metadata" playsinline poster="https://datasupply.ai/media/partner-opportunity-v4-poster.jpg" src="https://datasupply.ai/media/partner-opportunity-v4.mp4"></video></div>
+    <div class="video"><span class="dur">4:14 · The compensation plan</span><video controls preload="metadata" playsinline poster="https://datasupply.ai/media/wences-compensation-plan-v3-poster.jpg" src="https://datasupply.ai/media/wences-compensation-plan-v3.mp4"></video></div>
+
+    <p class="kicker" style="margin-top:34px">Organization compensation plan</p>
+    <div class="tbl"><table>
+      <tr><th>Recipient</th><th>Buyer / origination fee</th><th>Seller fee</th></tr>
+      <tr><td class="c">Level 1 · Producer (you)</td><td class="g">85%</td><td class="g">35%</td></tr>
+      <tr><td class="c">Level 2 · Upline</td><td>7.5%</td><td>5%</td></tr>
+      <tr><td class="c">Level 3 · Upline</td><td>7.5%</td><td>5%</td></tr>
+    </table></div>
+    <p class="fine">Rates apply to the corresponding collected fee, not to the license value. Level 1 is the producer; subsequent levels are uplines. Compensation and payment timing are governed by your individual partner agreement. Nothing on this page is an offer of any specific compensation.</p>
+
+    <div class="steps">
+      <div class="step"><small>STEP 01</small><b>You open the door.</b><p>Introduce a company owner, or invite a partner who knows owners.</p></div>
+      <div class="step"><small>STEP 02</small><b>We do the fulfillment.</b><p>A deployed engineer builds the manifest, handles security review and negotiates the offers.</p></div>
+      <div class="step"><small>STEP 03</small><b>The deal closes.</b><p>The company signs a license. The seller pays a seller fee; the buyer pays an origination fee.</p></div>
+      <div class="step"><small>STEP 04</small><b>You get paid on both.</b><p>When DataSupply collects, you are paid, with a statement showing every number.</p></div>
+    </div>
+
+    <div class="row" style="margin-top:26px">
+      <a class="btn primary" href="https://datasupply.ai/w/p/6Lw9PmLt" target="_blank" rel="noopener">Join the partner program under Ty ↗</a>
+      <a class="btn" href="https://datasupply.ai/resources/partner-field-guide?ref=uobRtF82&utm_source=referral&utm_medium=share&utm_campaign=data_referral" target="_blank" rel="noopener">Partner field guide</a>
+      <p class="fine">No fee to join. A unique link to share. Progress you can track.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="meta">datasupplyai.com.au · Presented by Ty Yturralde · DataSupply Strategic Partner</div>
+    <div>No offer or payment is guaranteed. Buyers decide eligibility and terms.</div>
+    <div class="fine">Videos and program details are DataSupply's. Compensation shown is the organization plan on Ty's partner page as of 29 Oct 2026 and may differ by program, group and partner.</div>
+  </footer>
+</div>
+</body>
+</html>
