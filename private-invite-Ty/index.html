@@ -129,28 +129,26 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
 .calc .bd .v.g{color:var(--gold1);font-weight:600}
 .calc .btn{justify-content:space-between;width:100%;margin-top:8px}
 @media (max-width:700px){.calc{grid-template-columns:1fr}.calc .right{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:18px}}
-.glow{position:relative;isolation:isolate;font-size:18px;padding:16px 26px;overflow:hidden;animation:breathe 1.8s ease-in-out infinite;will-change:transform,box-shadow}
-.glow::before{content:"";position:absolute;inset:-3px;border-radius:inherit;background:conic-gradient(from 0deg,#D5BC8D,#FFF2D0,#C8A76F,#FFF2D0,#D5BC8D);z-index:-2;animation:spin 2.4s linear infinite;filter:blur(6px);opacity:.9}
-.glow::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.75) 50%,transparent 65%);background-size:220% 100%;animation:sheen 1.8s ease-in-out infinite;pointer-events:none}
-@keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(234,217,181,.75),0 0 24px 4px rgba(213,188,141,.45)}50%{transform:scale(1.045);box-shadow:0 0 0 14px rgba(234,217,181,0),0 0 48px 12px rgba(213,188,141,.75)}}
-@keyframes sheen{0%{background-position:160% 0}100%{background-position:-60% 0}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.glow{animation:breathe 3.5s ease-in-out infinite}.glow::before{animation:none}.glow::after{animation:none;display:none}}
+.glow{font-size:18px;padding:16px 26px;box-shadow:0 0 18px 2px rgba(213,188,141,.28);animation:softglow 3s ease-in-out infinite}
+@keyframes softglow{0%,100%{box-shadow:0 0 14px 1px rgba(213,188,141,.22)}50%{box-shadow:0 0 28px 6px rgba(213,188,141,.45)}}
+@media (prefers-reduced-motion:reduce){.glow{animation:none}}
 .big .bigcta{grid-column:1 / -1;display:flex;justify-content:center;padding-top:10px;border-top:1px solid var(--line)}
 .btn.xl{font-size:clamp(20px,3vw,26px);padding:20px 44px;border-radius:14px}
 @media (max-width:560px){.btn.xl{width:100%;justify-content:center}}
-.labs{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:18px;margin-top:34px;overflow:hidden;position:relative}
-.labs .k{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-outline);margin:0 0 14px}
-.labs .track{display:flex;width:max-content;gap:0;animation:marquee 38s linear infinite}
-.labs ul{display:flex;align-items:center;gap:0;margin:0;padding:0;list-style:none}
-.labs li{display:flex;align-items:center;gap:36px;padding-right:36px;font:700 clamp(20px,2.6vw,28px)/1 var(--display);letter-spacing:-.03em;color:var(--muted2);white-space:nowrap}
-.labs li::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold-outline);opacity:.8}
-.labs::before,.labs::after{content:"";position:absolute;top:0;bottom:0;width:80px;z-index:1;pointer-events:none}
+.labs{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:18px 22px;margin-top:34px;overflow:hidden;position:relative}
+.labs .k{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-outline);margin:0 0 18px}
+.labs .track{display:flex;width:max-content;animation:marquee 40s linear infinite}
+.labs ul{display:flex;align-items:center;margin:0;padding:0;list-style:none}
+.labs li{display:flex;align-items:center;padding-right:64px}
+.labs img{height:30px;width:auto;max-width:170px;display:block;filter:brightness(0) invert(1);opacity:.82}
+.labs li.sq img{height:34px}
+.labs::before,.labs::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:1;pointer-events:none}
 .labs::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
 .labs::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
 @keyframes marquee{to{transform:translateX(-50%)}}
 .labs:hover .track{animation-play-state:paused}
-@media (prefers-reduced-motion:reduce){.labs .track{animation:none;flex-wrap:wrap;width:auto}.labs ul+ul{display:none}}
+@media (max-width:560px){.labs img{height:24px;max-width:130px}.labs li{padding-right:44px}}
+@media (prefers-reduced-motion:reduce){.labs .track{animation:none;flex-wrap:wrap;width:auto;gap:18px 0}.labs ul{flex-wrap:wrap;gap:18px 0}.labs ul+ul{display:none}}
 @media (max-width:560px){.sig{grid-template-columns:1fr}.sig .body{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:14px}}
 @media (max-width:560px){.big{grid-template-columns:1fr}.step-h{grid-template-columns:1fr;gap:6px}}
 </style>
@@ -183,7 +181,7 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
 
   <div class="labs" aria-label="AI labs">
     <p class="k">The labs training the next generation of AI</p>
-    <div class="track"><ul><li>OpenAI</li><li>Anthropic</li><li>Google DeepMind</li><li>Meta AI</li><li>Microsoft</li><li>Amazon</li><li>NVIDIA</li><li>xAI</li><li>Mistral AI</li><li>Cohere</li><li>Perplexity</li><li>Hugging Face</li></ul><ul aria-hidden="true"><li>OpenAI</li><li>Anthropic</li><li>Google DeepMind</li><li>Meta AI</li><li>Microsoft</li><li>Amazon</li><li>NVIDIA</li><li>xAI</li><li>Mistral AI</li><li>Cohere</li><li>Perplexity</li><li>Hugging Face</li></ul></div>
+    <div class="track"><ul><li><img src="logos/openai.svg" alt="OpenAI" loading="lazy"></li><li><img src="logos/anthropic.svg" alt="Anthropic" loading="lazy"></li><li><img src="logos/deepmind.svg" alt="Google DeepMind" loading="lazy"></li><li><img src="logos/meta.svg" alt="Meta" loading="lazy"></li><li><img src="logos/microsoft.svg" alt="Microsoft" loading="lazy"></li><li><img src="logos/amazon.svg" alt="Amazon" loading="lazy"></li><li><img src="logos/nvidia.svg" alt="NVIDIA" loading="lazy"></li><li class="sq"><img src="logos/xai.svg" alt="xAI" loading="lazy"></li><li class="sq"><img src="logos/mistral.svg" alt="Mistral AI" loading="lazy"></li><li><img src="logos/perplexity.svg" alt="Perplexity" loading="lazy"></li><li><img src="logos/huggingface.svg" alt="Hugging Face" loading="lazy"></li></ul><ul aria-hidden="true"><li><img src="logos/openai.svg" alt="OpenAI" loading="lazy"></li><li><img src="logos/anthropic.svg" alt="Anthropic" loading="lazy"></li><li><img src="logos/deepmind.svg" alt="Google DeepMind" loading="lazy"></li><li><img src="logos/meta.svg" alt="Meta" loading="lazy"></li><li><img src="logos/microsoft.svg" alt="Microsoft" loading="lazy"></li><li><img src="logos/amazon.svg" alt="Amazon" loading="lazy"></li><li><img src="logos/nvidia.svg" alt="NVIDIA" loading="lazy"></li><li class="sq"><img src="logos/xai.svg" alt="xAI" loading="lazy"></li><li class="sq"><img src="logos/mistral.svg" alt="Mistral AI" loading="lazy"></li><li><img src="logos/perplexity.svg" alt="Perplexity" loading="lazy"></li><li><img src="logos/huggingface.svg" alt="Hugging Face" loading="lazy"></li></ul></div>
   </div>
 
   <section id="step1">
