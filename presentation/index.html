@@ -109,6 +109,20 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
 .sig .logo{display:block;margin-top:12px;width:140px}
 .sig .logo img{width:100%;height:auto;display:block}
 .sig .pres{font-size:15px;color:var(--muted);margin-top:12px}
+.calc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(20px,4vw,32px);margin-top:26px;display:grid;gap:18px}
+.calc .top{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:end}
+.calc label{display:block;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px}
+.calc .deal,.calc .earn{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.calc .earn{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.calc .direct{font-size:14px;color:var(--muted2);margin-top:8px}
+.calc input[type=range]{width:100%;accent-color:#D5BC8D;margin:6px 0 0}
+.calc .ends{display:flex;justify-content:space-between;font:500 11px var(--mono);letter-spacing:.1em;color:var(--fine)}
+.calc .bd{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding-top:16px}
+.calc .bd div{display:grid;gap:4px}
+.calc .bd .k{font-size:13px;color:var(--muted2)}
+.calc .bd .v{font-size:20px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.calc .bd .v.g{color:var(--gold1)}
+@media (max-width:560px){.calc .top,.calc .bd{grid-template-columns:1fr}}
 @media (max-width:560px){.sig{grid-template-columns:1fr}.sig .body{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:14px}}
 @media (max-width:560px){.big{grid-template-columns:1fr}.step-h{grid-template-columns:1fr;gap:6px}}
 </style>
@@ -182,6 +196,21 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
       <tr><td class="c">L2 · Upline</td><td>7.5%</td><td>5%</td></tr>
     </table></div>
     <p class="fine">Rates apply to the corresponding collected fee, not to the license value. Compensation and payment timing are governed by your individual partner agreement. Nothing on this page is an offer of any specific compensation.</p>
+
+    <p class="kicker" style="margin-top:30px">The partner model · example</p>
+    <h2>What could one intro <span class="gold">earn you?</span></h2>
+    <div class="calc" id="calc">
+      <div class="top">
+        <div><label for="deal">Their data deal</label><div class="deal" id="dealOut">$1,000,000</div></div>
+        <div><label>You earn</label><div class="earn" id="earnOut">$78,900</div><div class="direct">Going direct: <span id="directOut">$50,000</span></div></div>
+      </div>
+      <div><input type="range" id="deal" min="100000" max="5000000" step="25000" value="1000000" aria-label="Their data deal"><div class="ends"><span>$100K</span><span>$5M</span></div></div>
+      <div class="bd">
+        <div><span class="k">Seller fee, paid by the company</span><span class="v" id="sellerOut">$104,000</span><span class="k">Your 35%</span><span class="v g" id="sellerShareOut">$36,400</span></div>
+        <div><span class="k">Origination fee, paid by the lab</span><span class="v" id="origOut">$50,000</span><span class="k">Your 85%</span><span class="v g" id="origShareOut">$42,500</span></div>
+      </div>
+      <p class="fine" style="margin:0">Example only, same model as on Ty's DataSupply partner page. Actual fees vary with deal size and lab terms. Going direct means the origination fee alone, with one lab and one price. Not a promise of earnings.</p>
+    </div>
   </section>
 
   <section id="step4">
@@ -210,6 +239,20 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 if(typeof qrcode==='function'){document.querySelectorAll('[data-qr]').forEach(el=>{const q=qrcode(0,'M');q.addData(el.dataset.qr);q.make();el.innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});});}
+</script>
+<script>
+(function(){
+  // Same model as datasupply.ai/w/p/6Lw9PmLt (checked 30 Oct 2026): seller fee is tiered on the deal value,
+  // origination fee is 5% of the deal. Producer share: 35% of seller fee, 85% of origination fee.
+  const tiers=[[100000,.16],[250000,.12],[500000,.10],[1000000,.09],[Infinity,.08]];
+  function sellerFee(d){let fee=0,prev=0;for(const [cap,rate] of tiers){const slice=Math.min(d,cap)-prev;if(slice<=0)break;fee+=slice*rate;prev=cap;}return fee;}
+  const $=id=>document.getElementById(id), money=v=>'$'+Math.round(v).toLocaleString('en-US');
+  const r=$('deal'); if(!r)return;
+  function upd(){const d=+r.value,sf=sellerFee(d),of=d*.05,ss=sf*.35,os=of*.85;
+    $('dealOut').textContent=money(d);$('earnOut').textContent=money(ss+os);$('directOut').textContent=money(of);
+    $('sellerOut').textContent=money(sf);$('sellerShareOut').textContent=money(ss);$('origOut').textContent=money(of);$('origShareOut').textContent=money(os);}
+  r.addEventListener('input',upd);upd();
+})();
 </script>
 </body>
 </html>
