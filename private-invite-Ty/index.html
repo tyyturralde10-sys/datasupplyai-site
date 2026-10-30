@@ -139,6 +139,18 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
 .big .bigcta{grid-column:1 / -1;display:flex;justify-content:center;padding-top:10px;border-top:1px solid var(--line)}
 .btn.xl{font-size:clamp(20px,3vw,26px);padding:20px 44px;border-radius:14px}
 @media (max-width:560px){.btn.xl{width:100%;justify-content:center}}
+.labs{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:18px;margin-top:34px;overflow:hidden;position:relative}
+.labs .k{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-outline);margin:0 0 14px}
+.labs .track{display:flex;width:max-content;gap:0;animation:marquee 38s linear infinite}
+.labs ul{display:flex;align-items:center;gap:0;margin:0;padding:0;list-style:none}
+.labs li{display:flex;align-items:center;gap:36px;padding-right:36px;font:700 clamp(20px,2.6vw,28px)/1 var(--display);letter-spacing:-.03em;color:var(--muted2);white-space:nowrap}
+.labs li::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold-outline);opacity:.8}
+.labs::before,.labs::after{content:"";position:absolute;top:0;bottom:0;width:80px;z-index:1;pointer-events:none}
+.labs::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.labs::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.labs:hover .track{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.labs .track{animation:none;flex-wrap:wrap;width:auto}.labs ul+ul{display:none}}
 @media (max-width:560px){.sig{grid-template-columns:1fr}.sig .body{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:14px}}
 @media (max-width:560px){.big{grid-template-columns:1fr}.step-h{grid-template-columns:1fr;gap:6px}}
 </style>
@@ -150,7 +162,7 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
     <nav class="nav"><a href="#step1">1 · Watch</a><a href="#step2">2 · Apply</a><a href="#step3">3 · Earn</a><a href="#step4">4 · Partner</a></nav>
   </header>
 
-  <div class="hero">
+  <div class="hero" style="padding-bottom:0">
     <p class="kicker">AI data licensing · a step-by-step guide</p>
     <h1>The biggest opportunity in AI <span class="gold">for 2027.</span></h1>
     <p class="lead">AI labs have read the internet. What they have never seen is how real companies run. Established businesses are now licensing the records their work leaves behind, and the people who introduce them get paid.</p>
@@ -167,6 +179,11 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
         <div class="pres">I'm presenting you this opportunity. Four steps, about ten minutes. Start with the video.</div>
       </div>
     </div>
+  </div>
+
+  <div class="labs" aria-label="AI labs">
+    <p class="k">The labs training the next generation of AI</p>
+    <div class="track"><ul><li>OpenAI</li><li>Anthropic</li><li>Google DeepMind</li><li>Meta AI</li><li>Microsoft</li><li>Amazon</li><li>NVIDIA</li><li>xAI</li><li>Mistral AI</li><li>Cohere</li><li>Perplexity</li><li>Hugging Face</li></ul><ul aria-hidden="true"><li>OpenAI</li><li>Anthropic</li><li>Google DeepMind</li><li>Meta AI</li><li>Microsoft</li><li>Amazon</li><li>NVIDIA</li><li>xAI</li><li>Mistral AI</li><li>Cohere</li><li>Perplexity</li><li>Hugging Face</li></ul></div>
   </div>
 
   <section id="step1">
