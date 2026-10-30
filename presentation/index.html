@@ -129,6 +129,11 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
 .calc .bd .v.g{color:var(--gold1);font-weight:600}
 .calc .btn{justify-content:space-between;width:100%;margin-top:8px}
 @media (max-width:700px){.calc{grid-template-columns:1fr}.calc .right{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:18px}}
+.glow{position:relative;font-size:18px;padding:16px 26px;box-shadow:0 0 0 0 rgba(213,188,141,.55),0 10px 30px rgba(213,188,141,.18);animation:glow 2.2s ease-in-out infinite}
+.glow::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);background-size:250% 100%;animation:sheen 2.2s ease-in-out infinite;pointer-events:none;mix-blend-mode:overlay}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(213,188,141,.55),0 10px 30px rgba(213,188,141,.18)}50%{box-shadow:0 0 0 10px rgba(213,188,141,0),0 14px 44px rgba(213,188,141,.45)}}
+@keyframes sheen{0%{background-position:150% 0}100%{background-position:-150% 0}}
+@media (prefers-reduced-motion:reduce){.glow,.glow::after{animation:none}}
 @media (max-width:560px){.sig{grid-template-columns:1fr}.sig .body{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:14px}}
 @media (max-width:560px){.big{grid-template-columns:1fr}.step-h{grid-template-columns:1fr;gap:6px}}
 </style>
@@ -176,9 +181,7 @@ footer .meta{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:upp
     <div class="cta" id="company">
       <div>
         <h3>See if your company qualifies.</h3>
-        <p>Opens the application with Ty as your partner on the file.</p>
-        <a class="btn primary" href="https://datasupply.ai/data-partnership?ref=uobRtF82&utm_source=referral&utm_medium=share&utm_campaign=data_referral" target="_blank" rel="noopener">Apply as a company ↗</a>
-        <div class="url">datasupply.ai/data-partnership?ref=uobRtF82</div>
+        <a class="btn primary glow" href="https://datasupply.ai/data-partnership?ref=uobRtF82&utm_source=referral&utm_medium=share&utm_campaign=data_referral" target="_blank" rel="noopener">Apply as a company ↗</a>
       </div>
       <div class="qr" data-qr="https://datasupply.ai/data-partnership?ref=uobRtF82&utm_source=referral&utm_medium=share&utm_campaign=data_referral"></div>
     </div>
