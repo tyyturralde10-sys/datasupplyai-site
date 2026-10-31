@@ -6,7 +6,7 @@ const CONFIG = {
   COMPANY_LINK: 'https://datasupply.ai/data-partnership?ref=uobRtF82&utm_source=funnel&utm_medium=ads&utm_campaign=start',
   PARTNER_LINK: 'https://datasupply.ai/w/p/6Lw9PmLt',
   VIDEO_LINK: 'https://datasupplyai.com.au/private-invite-Ty/',
-  TOTAL_STEPS: 4
+  TOTAL_STEPS: 7
 };
 const LOGOS = ['openai','anthropic','deepmind','meta','microsoft','amazon','nvidia','xai','mistral','perplexity','huggingface'];
 const answers = { utm: location.search.slice(1) };
@@ -14,6 +14,7 @@ const history = [];
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+const chip = (val, label) => `<button type="button" class="chip" data-c="${esc(val)}">${esc(label)}</button>`;
 const opt = (val, label, sub, img) => `<button class="opt ${img?'photo':''}" data-v="${esc(val)}">${img?`<img src="img/${img}.jpg" alt="">`:''}<span class="t">${esc(label)}${sub?`<small>${esc(sub)}</small>`:''}</span><span class="arr">→</span></button>`;
 
 const STEPS = {
@@ -49,7 +50,36 @@ const STEPS = {
       ${opt('6-10','6 to 10 years','')}
       ${opt('10+','More than 10 years','')}
     </div>`,
-    next: v => { answers.years = v; return 'contact'; } },
+    next: v => { answers.years = v; return 'industry'; } },
+
+  industry: { n: 4, html: () => `
+    <p class="kick">Your company · 3 of 5</p>
+    <h1>Which <span class="g">industry</span> are you in?</h1>
+    <p class="sub">Same list DataSupply uses. Pick the closest.</p>
+    <div class="opts compact">
+      ${['Legal','Accounting & finance','Healthcare & medical','Technology & software','Consulting & professional services','Recruiting & staffing','BPO & call centers','Logistics & 3PL','Other'].map(i=>opt(i,i,'')).join('')}
+    </div>`,
+    next: v => { answers.industry = v; return 'systems'; } },
+
+  systems: { n: 5, html: () => `
+    <p class="kick">Your company · 4 of 5</p>
+    <h1>Where do your <span class="g">records</span> live?</h1>
+    <p class="sub">Tap everything that applies. Five or more systems is the sweet spot.</p>
+    <div class="chips" id="chips">
+      ${['Email','Team chat','File storage','CRM','Support desk','Project management','Accounting','Phone system','Other'].map(x=>chip(x,x)).join('')}
+    </div>
+    <p class="err" id="err"></p>
+    <button class="cta" type="button" id="cont">Continue →</button>`,
+    next: () => 'location' },
+
+  location: { n: 6, html: () => `
+    <p class="kick">Your company · 5 of 5</p>
+    <h1>Where is your <span class="g">team</span> based?</h1>
+    <p class="sub">Labs currently focus on English-language records.</p>
+    <div class="opts compact">
+      ${['Australia','USA','Canada','UK','EU','Other'].map(i=>opt(i,i,'')).join('')}
+    </div>`,
+    next: v => { answers.location = v; return 'contact'; } },
 
   small: { n: 3, html: () => `
     <p class="kick">Not a fit yet, but</p>
@@ -80,21 +110,21 @@ const STEPS = {
     <div class="opts">${opt('go','Show me how to join','Takes 30 seconds','close-agreement')}</div>`,
     next: () => 'contact' },
 
-  contact: { n: 4, html: () => answers.owner ? `
+  contact: { n: 7, html: () => answers.owner ? `
     <p class="kick">Last step</p>
     <h1>Your company <span class="g">could qualify.</span></h1>
-    <p class="sub">Tell us where to send your indicative range, then finish the 60-second quote on DataSupply's secure page. No files, no dataset.</p>
-    ${formHtml('Get my indicative range')}` : `
+    <p class="sub">Last details. These are exactly what DataSupply asks for, so their page is a one-tap confirm. No files, no dataset.</p>
+    ${formHtml('Get my quote')}` : `
     <p class="kick">Last step</p>
     <h1>Lock in your <span class="g">partner seat.</span></h1>
     <div class="proof"><img src="headshot.jpg" alt="Ty Yturralde"><p><b>Ty Yturralde</b>, Head of Partnerships APAC. You'll join under me, and I'll walk you through your first introduction.</p></div>
     ${formHtml('Join the team now')}` },
 
-  done: { n: 4, html: () => answers.owner ? `
+  done: { n: 7, html: () => answers.owner ? `
     <p class="kick">You're in · one more step</p>
-    <h1>Finish your quote on <span class="g">DataSupply's page.</span></h1>
-    <p class="sub">We've saved your details. The quote itself takes 60 seconds on DataSupply's secure form, and your introduction is credited to Ty.</p>
-    <a class="cta" href="${CONFIG.COMPANY_LINK}" id="finalLink">Get my quote now →</a>
+    <h1>Confirm and <span class="g">book your call.</span></h1>
+    <p class="sub">Your answers are saved and credited to Ty. DataSupply's secure page asks the same questions one more time, then shows you their calendar. Takes about 60 seconds.</p>
+    <a class="cta" href="${CONFIG.COMPANY_LINK}#hero-quote" id="finalLink">Confirm &amp; book on DataSupply →</a>
     <a class="ghost" href="${CONFIG.VIDEO_LINK}">Watch the 4-minute explainer first</a>` : `
     <p class="kick">You're in · one more step</p>
     <h1>Claim your seat <span class="g">under Ty.</span></h1>
@@ -115,7 +145,9 @@ function formHtml(btn){ return `
     <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" placeholder="First and last name" required></div>
     <div class="field"><label for="phone">Mobile</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+61 4..." required></div>
     <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com" required></div>
-    ${answers.owner ? `<div class="field"><label for="company">Company</label><input id="company" name="company" autocomplete="organization" placeholder="Your company" required></div>` : ''}
+    ${answers.owner ? `<div class="field"><label for="company">Company name</label><input id="company" name="company" autocomplete="organization" placeholder="Your company" required></div>
+    <div class="field"><label for="website">Company website</label><input id="website" name="website" inputmode="url" autocomplete="url" placeholder="yourcompany.com" required></div>
+    <div class="field"><label for="linkedin">LinkedIn URL <span style="color:var(--fine)">(optional)</span></label><input id="linkedin" name="linkedin" inputmode="url" placeholder="linkedin.com/in/you"></div>` : ''}
     <label class="consent"><input type="checkbox" id="consent" required> I agree to be contacted by Ty Yturralde (DataSupply Strategic Partner) about this request by call, text or email.</label>
     <p class="err" id="err"></p>
     <button class="cta" type="submit" id="submit">${btn} →</button>
@@ -131,6 +163,11 @@ function render(id, push=true){
   window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   $('#main').querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => render(st.next(b.dataset.v))));
   const f = $('#f'); if (f) f.addEventListener('submit', onSubmit);
+  const chips = $('#chips'); if (chips) {
+    const sel = new Set(answers.systems || []);
+    chips.querySelectorAll('.chip').forEach(c => { c.classList.toggle('on', sel.has(c.dataset.c)); c.addEventListener('click', () => { sel.has(c.dataset.c) ? sel.delete(c.dataset.c) : sel.add(c.dataset.c); c.classList.toggle('on'); }); });
+    $('#cont').addEventListener('click', () => { if (!sel.size) { $('#err').textContent = 'Pick at least one.'; return; } answers.systems = [...sel]; render(st.next()); });
+  }
   const first = $('#main input'); if (first && matchMedia('(min-width:720px)').matches) first.focus();
 }
 let current = null;
@@ -143,7 +180,7 @@ async function onSubmit(ev){
   if (!ok) { err.textContent = 'Please check the highlighted fields.'; return; }
   err.textContent = '';
   const btn = $('#submit'); btn.disabled = true; btn.textContent = 'Saving…';
-  const lead = { ...answers, path: answers.owner ? 'owner' : 'partner', name: f.name.value.trim(), phone: f.phone.value.trim(), email: f.email.value.trim(), company: f.company ? f.company.value.trim() : '', source: 'datasupplyai.com.au/start', submitted_at: new Date().toISOString(), referral_code: 'uobRtF82' };
+  const lead = { ...answers, path: answers.owner ? 'owner' : 'partner', name: f.name.value.trim(), phone: f.phone.value.trim(), email: f.email.value.trim(), company: f.company ? f.company.value.trim() : '', website: f.website ? f.website.value.trim() : '', linkedin: f.linkedin ? f.linkedin.value.trim() : '', systems: answers.systems || [], source: 'datasupplyai.com.au/start', submitted_at: new Date().toISOString(), referral_code: 'uobRtF82' };
   try { if (CONFIG.GHL_WEBHOOK) await fetch(CONFIG.GHL_WEBHOOK, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify(lead) }); } catch(e) {}
   try { if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: lead.path }); } catch(e) {}
   try { localStorage.setItem('ds_lead', JSON.stringify(lead)); } catch(e) {}
